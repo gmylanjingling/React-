@@ -5,6 +5,7 @@
 import React, {Component} from 'react'
 import { Button,NavBar,WingBlank,List,InputItem,Radio,WhiteSpace} from 'antd-mobile';
 import Logo from '../../components/logo/logo';
+import {reqRegister} from '../../api'
 export default class Register extends Component {
   //初始化状态
   state={
@@ -16,15 +17,20 @@ export default class Register extends Component {
   toLogin=()=>{
 //通过js进行跳转（编程式路由导航-->通过纯js实现路由跳转）
 this.props.history.replace('./login')
-  }
+  };
   handleChange = (name,val)=>{
     this.setState({
       [name]:val
     })
-  }//API中传参只传递val，没有穿name
+  };
+  //API中传参只传递val，没有穿name
   //请求注册
   register=()=>{
 console.log(this.state)
+reqRegister(this.state).then(response=>{
+  console.log(response.data)
+})
+//传对象-----为什么?????
   }
   render() {
 const {type} = this.state;
@@ -37,7 +43,7 @@ const {type} = this.state;
           <WhiteSpace />
           <InputItem type="text" placeholder="请输入密码" onChange={(val)=>this.handleChange(' password',val)}>密码</InputItem>
           <WhiteSpace />
-          <InputItem type="text" placeholder="请确认密码" onChange={(val)=>this.handleChange('repsdpassword',val)}>确认密码</InputItem>
+          <InputItem type="text" placeholder="请确认密码" onChange={(val)=>this.handleChange('repassword',val)}>确认密码</InputItem>
           <WhiteSpace />
        {/*inoutItem是独占一行，而radio不独占一行*/}
         <List.Item>
